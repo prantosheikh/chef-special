@@ -8,14 +8,17 @@ import {
   Navbar,
 } from "react-bootstrap";
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
   return (
     <Container className="sticky-top">
       <Navbar className="mt-4 py-3" bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand className="fw-bold fs-4" href="#">
-            CHEF <span className="text-warning">SPECIAL</span>
+          <Navbar.Brand className="fw-bold fs-4">
+            <Link className="text-black text-decoration-none" to="/">
+              CHEF <span className="text-warning">SPECIAL</span>
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -58,7 +61,9 @@ const NavigationBar = () => {
               <FaSearch className="fs-5" />
               <FaShoppingCart className="fs-5" />
               <FaUser className="fs-5" />
-              <Button variant="warning">Login</Button>
+              <Link to="/login">
+                <Button variant="warning">Login</Button>
+              </Link>
             </Form>
           </Navbar.Collapse>
         </Container>
