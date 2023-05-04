@@ -6,7 +6,6 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthCondext);
   const data = useLoaderData();
   const location = useLocation();
-    const from = location?.state?.from?.pathname;
 
   if (user) {
     return children;

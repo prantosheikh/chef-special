@@ -26,17 +26,20 @@ const Register = () => {
     if (!/(?=.*[A-Z])/.test(password)) {
       return setError("Should contain at least one upper case");
     }
-    createUser(email, password)
-      .then((result) => {
-        const users = result.user;
-        setSuccess("You are successfully registration in");
-        console.log(users);
-        handleUserupdateProfile(users, name, photo);
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log(error);
-      });
+    else if (!/^.{6}$/.test(password)) {
+      return setError("Password must be exactly 6 characters.");
+    }
+      createUser(email, password)
+        .then((result) => {
+          const users = result.user;
+          setSuccess("You are successfully registration in");
+          console.log(users);
+          handleUserupdateProfile(users, name, photo);
+        })
+        .catch((error) => {
+          setError(error.message);
+          console.log(error);
+        });
   };
 
   const handleUserupdateProfile = (users, name, photo) => {
