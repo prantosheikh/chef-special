@@ -8,6 +8,7 @@ import ChefAndRecipe from "../pages/ChefAndRecipe/ChefAndRecipe";
 import ChefCard from "../pages/Home/ChefCard/ChefCard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,9 +41,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/chef/:id",
-        element: <ChefAndRecipe></ChefAndRecipe>,
+        element: (
+          <PrivateRoute>
+            <ChefAndRecipe></ChefAndRecipe>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/chef/${params.id}`),
+          fetch(
+            `https://chef-recipe-server-prantosheik.vercel.app/chef/${params.id}`
+          ),
       },
     ],
   },

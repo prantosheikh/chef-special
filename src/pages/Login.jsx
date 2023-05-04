@@ -1,33 +1,47 @@
-import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import app from "../firebase/firebase.config";
 import { AuthCondext } from "../provider/AuthProvider";
 
 const Login = () => {
-  const auth = getAuth(app)
-  const providerGoogle = new GoogleAuthProvider;
-  const providerGithub = new GithubAuthProvider;
+  const auth = getAuth(app);
+  const providerGoogle = new GoogleAuthProvider();
+  const providerGithub = new GithubAuthProvider();
   const { user, signIn } = useContext(AuthCondext);
-  const [success, setSuccess] = useState('')
-  const [error, setError] = useState('')
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   const HandleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    setError('')
-    setSuccess('')
+
+    setError("");
+    setSuccess("");
+
     signIn(email, password)
       .then((result) => {
         const loggedUser = result.user;
         setSuccess("You are successfully logged in");
+        navigate(from, { replace: true });
       })
-      .catch(error => {
-        setError(error.message)
+
+      .catch((error) => {
+        setError(error.message);
       });
   };
 
@@ -42,19 +56,19 @@ const Login = () => {
         console.log(error.message);
         setError(error.message);
       });
-  }
+  };
   const signInWhitGithub = () => {
     signInWithPopup(auth, providerGithub)
-      .then(result => {
+      .then((result) => {
         const GitHubUser = result.user;
         console.log(GitHubUser);
         setSuccess("You are successfully logged in");
       })
-      .catch(error => {
-        setError(error.message)
+      .catch((error) => {
+        setError(error.message);
         console.log(error.message);
-    })
-  }
+      });
+  };
 
   return (
     <Container>

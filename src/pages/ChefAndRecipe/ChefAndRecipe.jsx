@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, CardGroup, Container } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
+import { AuthCondext } from "../../provider/AuthProvider";
 
 const ChefAndRecipe = () => {
   const chefRecipes = useLoaderData();
-  console.log(chefRecipes?.recipes);
+  const {loading} = useContext(AuthCondext) 
+
+  console.log(chefRecipes);
+
   return (
     <Container>
       <div className="row">
