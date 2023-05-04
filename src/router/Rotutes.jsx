@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ChefLayout from "../Layout/ChefLayout";
 import LoginLayout from "../Layout/LoginLayout";
 import Main from "../Layout/Main";
+import Blog from "../pages/Blog/Blog";
 import ChefAndRecipe from "../pages/ChefAndRecipe/ChefAndRecipe";
 import ChefCard from "../pages/Home/ChefCard/ChefCard";
 import Login from "../pages/Login";
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/blog',
+    element: <Blog></Blog>
+  }
 ]);
 
 export default router;

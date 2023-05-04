@@ -46,8 +46,13 @@ const NavigationBar = () => {
               <Nav.Link className="ms-3 fs-6 fw-semibold" href="#action3">
                 Menu
               </Nav.Link>
-              <Nav.Link className="ms-3 fs-6 fw-semibold" href="#action4">
-                Blog
+              <Nav.Link
+                className="ms-3 fs-6 text-secondary fw-semibold"
+                href="#action4"
+              >
+                <Link className="text-black text-decoration-none" to="/blog">
+                  Blog
+                </Link>
               </Nav.Link>
               <Nav.Link className="ms-3 fs-6 fw-semibold" href="#action5">
                 Contact
