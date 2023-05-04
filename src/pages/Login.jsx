@@ -1,20 +1,71 @@
-import React from "react";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import React, { useContext, useState } from "react";
 import { Container, Form } from "react-bootstrap";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import app from "../firebase/firebase.config";
+import { AuthCondext } from "../provider/AuthProvider";
 
 const Login = () => {
+  const auth = getAuth(app)
+  const providerGoogle = new GoogleAuthProvider;
+  const providerGithub = new GithubAuthProvider;
+  const { user, signIn } = useContext(AuthCondext);
+  const [success, setSuccess] = useState('')
+  const [error, setError] = useState('')
+  const HandleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    setError('')
+    setSuccess('')
+    signIn(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        setSuccess("You are successfully logged in");
+      })
+      .catch(error => {
+        setError(error.message)
+      });
+  };
+
+  const signInWhitGoogle = () => {
+    signInWithPopup(auth, providerGoogle)
+      .then((result) => {
+        console.log(result.user);
+        const googleUser = result.user;
+        setSuccess("You are successfully logged in");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+      });
+  }
+  const signInWhitGithub = () => {
+    signInWithPopup(auth, providerGithub)
+      .then(result => {
+        const GitHubUser = result.user;
+        console.log(GitHubUser);
+        setSuccess("You are successfully logged in");
+      })
+      .catch(error => {
+        setError(error.message)
+        console.log(error.message);
+    })
+  }
+
   return (
     <Container>
       <div className="row my-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-        <div className="col-sm-12 col-md-8">
-          <Form className="w-75 mx-auto my-5">
+        <div className="w-50 mx-auto">
+          <Form onSubmit={HandleLogin} className="my-5">
             <h3>Welcome! Please Login to continue.</h3>
             <p>
               New member?
               <span>
-                <Link className="text-decoration-none ms-1" to="/regiter">
+                <Link className="text-decoration-none ms-1" to="/register">
                   Register here.
                 </Link>
               </span>
@@ -23,6 +74,7 @@ const Login = () => {
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
+                name="email"
                 placeholder="Enter email"
                 className="rounded-0 p-3"
               />
@@ -33,30 +85,38 @@ const Login = () => {
               <Form.Control
                 className="rounded-0 p-3"
                 type="password"
+                name="password"
                 placeholder="Password"
               />
             </Form.Group>
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              <span className="text-danger">{error}</span>
+              <span className="text-success">{success}</span>
             </Form.Text>
+
+            <div className="mt-2">
+              <button className="bg-danger border border-0 w-100  mt-5 text-white fw-bold py-3">
+                Login
+              </button>
+              <p>Or,Login With</p>
+            </div>
           </Form>
-        </div>
-        <div className="col-sm-12 col-md-4 my-5">
-          <div className="mt-5">
-            <button className="btn btn-danger w-75 mt-5 text-white fw-bold">
-              Login
-            </button>
-            <p>Or,Login With</p>
-          </div>
           <div>
-            <button className="btn btn-warning w-75 my-3 text-white fw-bold">
-              <FaGoogle className="me-3 text-white fw-bold" />
-              Google
-            </button>{" "}
-            <br />
-            <button className="btn btn-primary w-75 text-white fw-bold">
-              <FaFacebookF className="text-white fw-semibold" /> Facebook
-            </button>
+            <div>
+              <button
+                onClick={signInWhitGoogle}
+                className="bg-warning  mb-2 py-2 w-50 border border-0 w-100  text-white fw-bold "
+              >
+                <FaGoogle className="me-3 fs-3 text-white fw-bold" />
+                Google
+              </button>{" "}
+              <button
+                onClick={signInWhitGithub}
+                className="bg-primary py-2 w-50  border border-0 w-100  text-white fw-bold "
+              >
+                <FaGithub className="text-white fw-semibold fs-3" /> GitHub
+              </button>
+            </div>
           </div>
         </div>
       </div>

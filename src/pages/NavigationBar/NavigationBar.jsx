@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Container,
@@ -7,10 +7,20 @@ import {
   NavDropdown,
   Navbar,
 } from "react-bootstrap";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthCondext } from "../../provider/AuthProvider";
 
 const NavigationBar = () => {
+  const { user, logOut } = useContext(AuthCondext);
+
+  const handleLogout = () => {
+    logOut()
+      .then((result) => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <Container className="sticky-top">
       <Navbar className="mt-4 py-3" bg="light" expand="lg">
@@ -58,12 +68,26 @@ const NavigationBar = () => {
               </NavDropdown>
             </Nav>
             <Form className="d-flex gap-3 align-items-center">
+              <p>{user && user.displayName}</p>
               <FaSearch className="fs-5" />
               <FaShoppingCart className="fs-5" />
-              <FaUser className="fs-5" />
-              <Link to="/login">
-                <Button variant="warning">Login</Button>
-              </Link>
+              {user && (
+                <img
+                  className="rounded-circle"
+                  title={user ? user.displayName : ""}
+                  width={35}
+                  src={user.photoURL}
+                />
+              )}
+              {user ? (
+                <Button onClick={handleLogout} variant="warning">
+                  Logout
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button variant="warning">Login</Button>
+                </Link>
+              )}
             </Form>
           </Navbar.Collapse>
         </Container>

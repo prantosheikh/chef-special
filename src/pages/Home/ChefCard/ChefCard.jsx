@@ -25,7 +25,7 @@ const ChefCard = () => {
       <Row className="row-cols-2 row-cols-md-3 g-4">
         {chefDatas.map((chefData, index) => (
           <Col key={index}>
-            <Card>
+            <Card className="border border-0">
               <Card.Img variant="top" src={chefData?.ChefPicture} />
               <Card.Body>
                 <Card.Title>{chefData?.ChefName}</Card.Title>
@@ -38,10 +38,7 @@ const ChefCard = () => {
                   {chefData?.Likes}
                 </div>
               </Card.Body>
-              <Link
-              
-                to={`chef/${chefData.id}`}
-              >
+              <Link to={`chef/${chefData.id}`}>
                 <button className="btn btn-warning px-3 w-100 text-secondary fw-bold">
                   View Recipes
                 </button>
