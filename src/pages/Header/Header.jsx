@@ -24,7 +24,7 @@ const Header = () => {
                         <br />
                         tempor incididunt ut labore et dolore magna aliqua Quis
                       </p>
-                      <button className="btn btn-warning text-light fw-semibold">
+                      <button  className="btn btn-warning text-light fw-semibold">
                         HIRE NOW
                       </button>
                     </div>

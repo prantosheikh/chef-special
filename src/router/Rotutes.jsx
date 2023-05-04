@@ -7,12 +7,14 @@ import Main from "../Layout/Main";
 import ChefAndRecipe from "../pages/ChefAndRecipe/ChefAndRecipe";
 import ChefCard from "../pages/Home/ChefCard/ChefCard";
 import Login from "../pages/Login";
+import ErrorPage from "../pages/PAGE404/ErrorPage";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",

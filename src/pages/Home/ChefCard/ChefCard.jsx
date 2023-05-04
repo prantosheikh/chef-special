@@ -21,6 +21,7 @@ const ChefCard = () => {
           Meet our talented chefs who create delicious dishes with passion and
           creativity.
         </p>
+        
       </div>
       <Row className="row-cols-2 row-cols-md-3 g-4">
         {chefDatas.map((chefData, index) => (
