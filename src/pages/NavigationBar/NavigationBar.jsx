@@ -38,7 +38,10 @@ const NavigationBar = () => {
               navbarScroll
             >
               <Nav.Link className="ms-3 fs-6 fw-semibold" href="#action1">
-                Home
+                <Link className="text-black text-decoration-none" to="/">
+                  {" "}
+                  Home
+                </Link>
               </Nav.Link>
               <Nav.Link className="ms-3 fs-6 fw-semibold" href="#action2">
                 About Us

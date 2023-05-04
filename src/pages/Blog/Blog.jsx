@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   return (
@@ -7,6 +8,11 @@ const Blog = () => {
       <div className="row mx-auto my-5">
         <h2 className="text-center my-5 fw-bold">Blog Section</h2>
         <div className="col-md-6  p-4">
+          <button className="btn btn-warning">
+            <Link className="text-black text-decoration-none" to="/">
+              Go Home
+            </Link>
+          </button>
           <h3>
             1. Tell us the differences between uncontrolled and controlled
             components.
@@ -61,7 +67,9 @@ const Blog = () => {
           </p>
         </div>
         <div className="col-md-6 ">
-          <h3>4. What is a custom hook, and why will you create a custom hook</h3>
+          <h3>
+            4. What is a custom hook, and why will you create a custom hook
+          </h3>
           <p>
             Custom Hooks are functions. Usually, they start with the word “use”
             important convention. Unlike a React component, a custom Hook
