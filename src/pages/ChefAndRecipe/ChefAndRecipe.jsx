@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Card, CardGroup, Container } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Card, CardGroup, Container, Spinner } from "react-bootstrap";
 import { FaHeart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Rating from "react-rating";
 import { useLoaderData } from "react-router-dom";
@@ -10,6 +10,19 @@ import { AuthCondext } from "../../provider/AuthProvider";
 const ChefAndRecipe = () => {
   const chefRecipes = useLoaderData();
   const { loading } = useContext(AuthCondext);
+  const [disable, setDisable] = useState(false)
+
+  if (loading) {
+    return (
+      <Container className="text-center my-5">
+        <Spinner animation="border" variant="warning" />
+      </Container>
+    );
+  }
+   const handleFavoriteClick = () => {
+     setDisable(true);
+     toast.success("Favorite Recipe!");
+   };
 
   console.log(chefRecipes);
 
@@ -82,11 +95,11 @@ const ChefAndRecipe = () => {
                       <div>
                         <button
                           className="btn btn-danger"
-                          onClick={() => toast.success("Favorite Fecipe!")}
+                          onClick={() => toast.success("Favorite Recipe!")}
                         >
                           favorite
                         </button>
-                        <ToastContainer />
+                        <ToastContainer  />
                       </div>
                     </div>
                   </div>
