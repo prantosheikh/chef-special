@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <ChefCard></ChefCard>,
-        // loader: () => fetch("http://localhost:5000"),
+        
       },
     ],
   },

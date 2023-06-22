@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const ChefCard = () => {
     const [chefDatas, setChefData] = useState([]);
  
-  // console.log(chefDatas);
   useEffect(() => {
     fetch("https://chef-recipe-server-prantosheik.vercel.app/")
       .then((res) => res.json())
